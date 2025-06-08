@@ -1,0 +1,44 @@
+{
+    "user": {
+        "user_id": "string",
+        "user_name": "string",
+        "address": "string",
+        "mo_no": "string",
+        "password": "string"
+    },
+    "seller": {
+        "seller_id": "string",
+        "seller_name": "string",
+        "password": "string",
+        "mo_no": "string",
+        "gst_no": "string"
+    },
+    "product": {
+        "seller_id": "string",
+        "seller_name": "string",
+        "sku_id": "string",
+        "product_name": "string",
+        "description": "string",
+        "price": "int",
+        "stock": "string",
+        "rating": "float",
+        "unit_sold": "int"
+    },
+    "sales": [
+        {
+            "date": "time",
+            "order_id": "string",
+            "user_id": "string",
+            "gst_no": "string",
+            "seller_id": "string",
+            "items": [
+                {
+                    "sku_id": "string",
+                    "quantity": "int",
+                    "price": "int"
+                }
+            ],
+            "bill_total": "int"
+        }
+    ]
+}
