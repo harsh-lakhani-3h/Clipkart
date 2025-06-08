@@ -8,7 +8,7 @@ A simple e-commerce marketplace API where buyers and sellers can interact. Built
 
 ```bash
 npm install
-npm start
+node app.js
 ```
 
 ## API Endpoints
@@ -30,6 +30,12 @@ POST /register
 Form data: user_name (string), mo_no (string), address (string), password (string)
 ```
 
+#### Login
+```bash
+POST /login
+Form data: mo_no (string), password (string)
+```
+
 #### Place Order
 ```json
 POST /order
@@ -41,6 +47,14 @@ POST /order
       "quantity": 1
     }
   ]
+}
+```
+
+#### Cancel Order
+```json
+POST /cancle
+{
+  "cancel": ["CF-9wmymv1"]
 }
 ```
 
@@ -63,13 +77,47 @@ POST /seller/register
 Form data: seller_name (string), mo_no (string), gst_no (string), password (string)
 ```
 
+#### Login
+```bash
+POST /seller/login
+Form data: mo_no (string), password (string)
+```
+
+#### Add Product
+```bash
+POST /seller/list-product
+Form data: sku_id (string), product_name (string), description (string), 
+          price (number), stock (number), product (file - multiple images)
+```
+
+#### Modify Product
+```bash
+POST /seller/modify-products
+Form data: sku_id (string), product_name (string), description (string),
+          price (number), stock (number), activation_status (boolean)
+```
+
+#### Process Orders
+```json
+POST /seller/process-orders
+{
+  "orders": ["CF-ffz93r7"]
+}
+```
+
 ## Project Structure
 
 ```
 ClipKart/
-├── testing data/     # Sample data files
-├── utilities.js      # Helper functions
-└── server.js        # Main server file
+├── controllers/      # Route handlers
+├── middlewares/      # JWT, Multer middleware
+├── models/          # Database models
+├── routers/         # Route definitions
+├── testing data/    # Sample data files
+├── uploads/         # File uploads
+├── app.js          # Main server file
+├── utilities.js    # Helper functions
+└── package.json    # Dependencies
 ```
 
 ## Testing Data
