@@ -3,11 +3,12 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 
-const secret_for_tokens = process.env.secret_for_tokens || "HarshLakhani", token_expires_in = { expiresIn: '1h' };
+const secret_for_tokens = process.env.secret_for_tokens || "HarshLakhani";
+const token_expires_in = { expiresIn: '1h' };
 const bcryptRounds = process.env.bcryptRounds ? parseInt(process.env.bcryptRounds) : 10;
 
 function removespace(x){
-    return x.replace(" ","");
+    return x.replace(" "/g,"");
 }
 
 function getcookieconfig( overrides = {}){
@@ -21,24 +22,20 @@ function getcookieconfig( overrides = {}){
 }
 
 function getid(x = 6) {
-    generator = customAlphabet('123456789', x);
+    const generator = customAlphabet('123456789', x);
     return generator();
 }
 
 async function hash(password, rounds = bcryptRounds) {
-    return bcrypt.hash(password, rounds);
+    return await bcrypt.hash(password, rounds);
 }
 
 async function checkpassword(password, hash) {
-    return new Promise((resolve)=>{
-        resolve(bcrypt.compare(password, hash));
-    });
+    return await bcrypt.compare(password, hash);
 }
 
 function gettoken(paylod, secret_key = secret_for_tokens, exipre = token_expires_in) {
-    return new Promise((resolve)=>{
-        resolve(jwt.sign(paylod, secret_key, exipre));
-    })
+    return jwt.sign(paylod, secret_key, exipre);
 }
 
 function checktoken(token, secret = secret_for_tokens) {
